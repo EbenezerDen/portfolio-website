@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio – Ebenezer Denkyi</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- AOS (scroll animations) CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+  /* ===== Brand Kit ===== */
+  :root{
+    --brand:#64FFDA;        /* primary accent */
+    --brand-2:#3BB2A0;      /* hover/active */
+    --ink:#0A192F;          /* headings */
+    --txt:#0A0A0A;          /* body text */
+    --txt-muted:#475569;    /* secondary text */
+    --surface:#FFFFFF;      /* cards */
+    --surface-2:#F8FAFC;    /* section alt */
+    --line:#E9ECEF;         /* borders */
+    --shadow:0 10px 24px rgba(2,6,23,.12);
+    --radius:.9rem;         /* default card radius */
+    --radius-sm:.5rem;
+    --radius-lg:1.25rem;
+    --space-1:.5rem;        /* 8px scale */
+    --space-2:1rem;         /* 16px */
+    --space-3:1.5rem;       /* 24px */
+    --space-4:2rem;         /* 32px */
+    --space-5:3rem;         /* 48px */
+  }
+
+  html{scroll-behavior:smooth;}
+  body{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;color:var(--txt);}
+  h1,h2,h3,h4,h5{font-family: Montserrat, Inter, sans-serif; color: var(--ink);}
+
+  /* Typography helpers */
+  .h-display{font-family: Montserrat, Inter, sans-serif; font-weight:800; letter-spacing:.3px;}
+  .h-strong{font-weight:800;}
+  .text-muted-2{color:var(--txt-muted)}
+
+  /* Section rhythm */
+  .section{ padding-top:6rem; padding-bottom:6rem; }
+  .section-alt{ background:var(--surface-2); }
+
+  /* Brand buttons */
+  .btn-brand{ background:var(--brand); color:#0A192F; font-weight:700; border:none; }
+  .btn-brand:hover{ background:var(--brand-2); color:#042024; }
+  .btn-outline-light{ border-width:2px; }
+  .btn-outline-primary{ border-width:2px; }
+
+  /* Cards */
+  .card-brand{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:none;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card-brand:hover{ transform:translateY(-3px); box-shadow:var(--shadow); }
+
+  /* Badges (tags) */
+  .badge-tag{
+    display:inline-block;
+    font-weight:600;
+    border:1px solid #e5e7eb;
+    background:#f8fafc;
+    color:var(--ink);
+    padding:.35rem .55rem;
+    border-radius:var(--radius-sm);
+  }
+
+  /* Icon box (contact/social) */
+  .icon-box{
+    width:72px;height:72px;
+    border-radius:8px;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    transition:transform .2s, box-shadow .2s;
+    margin:0 auto;
+  }
+  .icon-box img{ width:70%; height:70%; object-fit:contain; display:block; }
+  .icon-box:hover{ transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,.22); }
+
+  /* ===== Navbar ===== */
+  .navbar-custom{background:#000;}
+  .navbar-custom .navbar-brand{color:#fff;font-weight:800;font-size:1.1rem;}
+  .navbar-custom .nav-link{color:#fff;font-weight:600;transition:color .2s}
+  .navbar-custom .nav-link:hover{color:#e06bb5;}
+  .navbar-custom .nav-link.active{ color: var(--brand) !important; }
+  #home,#hero,#about,#projects,#skills,#contact{scroll-margin-top:80px}
+
+  /* ===== Hero ===== */ 
+  /* Make hero title always visible */
+#hero .title{
+  color:#ffffff !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.25);
+}
+
+  #hero{
+    position:relative;
+    background:#0A192F;
+    color:#fff;
+    padding-top:7rem;
+    padding-bottom:5rem;
+    overflow:hidden;
+  }
+  #heroParticles{ position:absolute; inset:0; z-index:0; }
+  #hero .hero-inner{ position:relative; z-index:1; }
+  #hero .tag{color:var(--brand);font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
+  #hero .title{font-weight:800;line-height:1.05;font-size:clamp(2.2rem,5vw,3.2rem);}
+  #hero .sub{max-width:750px;line-height:1.8;color:rgba(230,241,255,.95)}
+  #hero .cta-wrap{gap:1rem}
+  #hero .hero-pic{width:120px;height:120px;border-radius:50%;overflow:hidden;border:3px solid var(--brand);}
+
+  /* Wave divider under hero */
+  .wave-divider{ position:relative; height:56px; margin-top:-10px; }
+  .wave-divider svg{ display:block; width:100%; height:56px; }
+
+  /* ===== About ===== */
+  #about .about-photo-wrap{width:300px;height:300px;border-radius:50%;overflow:hidden;background:#c7c7c7;display:grid;place-items:center;}
+  #about .about-photo{width:100%;height:100%;object-fit:cover;display:block;}
+  #about .about-text{max-width:920px}
+  #about p{line-height:1.9}
+
+  /* ===== Projects ===== */
+  #projects .card-img-top{height:200px;object-fit:cover;border-top-left-radius:var(--radius);border-top-right-radius:var(--radius);transition: transform .25s ease;}
+  #projects .card-brand:hover .card-img-top{transform:scale(1.03);}
+  #projects .card-body{display:flex;flex-direction:column;text-align:left}
+  #projects .card-title{font-weight:800;}
+  #projects .card-text{flex-grow:1;line-height:1.8;color:var(--txt-muted)}
+  #projects .card-brand .btn{transition:transform .15s ease;}
+  #projects .card-brand:hover .btn{transform:translateY(-1px);}
+
+  /* ===== Skills ===== */
+  #skills .card-img-top{height:160px;object-fit:contain;background:#f6f8fa;padding:24px;border-top-left-radius:var(--radius);border-top-right-radius:var(--radius);border-bottom:1px solid #edf0f2;transition:transform .25s ease;}
+  #skills .card-brand:hover .card-img-top{transform:scale(1.05);}
+  #skills .card-brand:hover{box-shadow:0 14px 30px rgba(2,6,23,.14);}
+
+  /* ===== Contact ===== */
+  #contact .contact-title{color:var(--brand);}
+  #contact .contact-line{max-width:900px;margin:0 auto 2.5rem auto;gap:2rem}
+  #contact .contact-pill{display:inline-flex;align-items:center;gap:.75rem;padding:.6rem 1rem;border-radius:.75rem;background:rgba(255,255,255,.08);font-size:1.1rem;font-weight:700;white-space:nowrap;}
+  #contact .contact-pill svg{width:28px;height:28px;flex:0 0 28px;fill:#fff;}
+  #contact .socials{margin-top:2.25rem;}
+  #contact .social-label{color:#fff;font-weight:600;font-size:1rem;margin:.5rem 0 0}
+
+  /* Back to top button */
+  .back-to-top{
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1050;
+    border-radius: 999px;
+    padding: .6rem .8rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  }
+  .back-to-top.show{ opacity: 1; visibility: visible; transform: translateY(0); }
+
+  /* Mobile tweaks */
+  @media (max-width: 576px){
+    #hero{padding-top:6rem;padding-bottom:3.25rem;}
+    .about-photo-wrap{width:240px;height:240px;}
+    #contact .icon-box{width:64px;height:64px;}
+  }
+  </style>
+</head>
+
+<!-- Enable Bootstrap Scrollspy -->
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100" tabindex="0">
+
+  <!-- Invisible anchor for "Home" -->
+  <div id="home" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">My Portfolio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-3">
+            <a class="btn btn-brand btn-sm px-3" href="docs/Ebenezer_Denkyi_CV.pdf" target="_blank" rel="noopener">
+              Download CV
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero" class="section">
+      <div id="heroParticles"></div>
+      <div class="hero-inner">
+        <div class="container">
+          <div class="d-flex flex-column flex-md-row align-items-center gap-4" data-aos="fade-up">
+            <div class="hero-pic me-md-3">
+              <img src="images/about/1.jpg" alt="Ebenezer portrait" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <div class="tag mb-2">Data with Purpose</div>
+              <h1 class="title h-display mb-2">Ebenezer Denkyi — Data Analyst & Storyteller</h1>
+              <p class="sub mb-3">
+                I turn complex healthcare, market, and business data into clear, strategic insights.
+                SQL • Tableau • Power BI • Modeling & Interactive Dashboard Design
+              </p>
+              <div class="d-flex flex-wrap cta-wrap">
+                <a href="#projects" class="btn btn-brand">View Projects</a>
+                <a href="#contact" class="btn btn-outline-light">Contact Me</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tiny wave divider -->
+      <div class="wave-divider" aria-hidden="true">
+        <svg viewBox="0 0 1440 56" preserveAspectRatio="none">
+          <path d="M0,24 C240,56 480,0 720,24 C960,48 1200,8 1440,24 L1440,56 L0,56 Z" fill="#f8fafc"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section section-alt">
+      <div class="container text-center" data-aos="fade-up">
+        <h1 class="h-display mb-5">About</h1>
+
+        <div class="d-flex justify-content-center mb-5">
+          <div class="about-photo-wrap shadow-sm">
+            <img src="images/about/1.jpg" alt="Personal portrait" class="about-photo">
+          </div>
+        </div>
+
+        <div class="mx-auto about-text">
+          <p class="fs-5 text-body-emphasis">
+            I am a multidisciplinary Data Analyst with a strong track record of delivering actionable insights across
+            <strong>healthcare</strong>, <strong>market research</strong>, and <strong>business intelligence</strong>.
+            My expertise spans SQL, Excel, Tableau, and Power BI, enabling me to design robust data models and develop
+            interactive dashboards that transform complex information into clear, strategic direction.
+          </p>
+          <p class="fs-6 text-muted-2">
+            My professional journey bridges the precision of data analytics with the human-centered focus of healthcare
+            and human resource management. I have worked on projects that not only informed high-level decision-making
+            but also contributed to tangible improvements in operational efficiency, patient care, and stakeholder engagement.
+          </p>
+          <p class="fs-6 text-muted-2">
+            Beyond technical execution, I am driven by a guiding principle: <em>data with purpose</em>.
+            Every dataset tells a story, and I excel in uncovering the narratives that matter most—identifying trends,
+            predicting outcomes, and streamlining reporting processes to empower leadership teams.
+          </p>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+          <div class="col-md-10 col-lg-8">
+            <ul class="list-unstyled text-start mx-auto" style="max-width:720px;">
+              <li class="mb-2">✅ Healthcare, market, and business insights — <em>data with purpose</em></li>
+              <li class="mb-2">✅ SQL, Tableau, Power BI — modeling & interactive dashboards</li>
+              <li class="mb-2">✅ Stakeholder-ready visuals & executive reporting</li>
+            </ul>
+            <div class="text-center mt-3">
+              <a class="btn btn-outline-primary" href="docs/Ebenezer_Denkyi_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="section">
+      <div class="container text-center" data-aos="fade-up">
+        <h1 class="h-display mb-4">Projects</h1>
+
+        <!-- Filter buttons -->
+        <div id="project-filters" class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <button class="btn btn-outline-primary active" type="button" data-filter="all">All</button>
+          <button class="btn btn-outline-primary" type="button" data-filter=".powerbi">Power BI</button>
+          <button class="btn btn-outline-primary" type="button" data-filter=".sql">SQL</button>
+          <button class="btn btn-outline-primary" type="button" data-filter=".tableau">Tableau</button> 
+          <button class="btn btn-outline-primary" type="button" data-filter=".excel">Excel</button>
+        </div>
+
+        <!-- MixItUp container -->
+        <div id="projects-mix" class="row row-cols-1 row-cols-md-3 g-4">
+          <!-- Project 1 -->
+         <div class="col mix tableau">
+  <div class="card card-brand h-100">
+    <img src="images/projects/1.jpg" class="card-img-top" alt="Executive Business Performance Dashboard – Office Monster">
+    <div class="card-body">
+      <h5 class="card-title">Executive Business Performance Dashboard</h5>
+      <p class="project-tags mb-2">
+        <span class="badge-tag me-1">Tableau</span>
+        <span class="badge-tag me-1">Office Monster</span>
+        <span class="badge-tag me-1">Executive KPIs</span>
+      </p>
+      <p class="card-text">
+        C-suite Tableau dashboard for <strong>Office Monster</strong> tracking revenue, profit, margin, and product/category performance.
+        Built for board-level reviews with drill-downs and at-a-glance trends.
+      </p>
+      <div class="d-flex gap-2">
+        <a href="https://public.tableau.com/app/profile/ebenezer.denkyi/viz/shared/MWJRP7SRY" target="_blank" rel="noopener" class="btn btn-outline-primary w-50">
+          Live Demo
+        </a>
+        <a href="https://github.com/yourname/office-monster-exec-dashboard" target="_blank" rel="noopener" class="btn btn-primary w-50">
+          Source
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+          <!-- Project 2 -->
+<div class="col mix sql">
+  <div class="card card-brand h-100">
+    <img src="images/projects/2.jpg" class="card-img-top" alt="NextGen HR Analytics – SQL Toolkit">
+    <div class="card-body">
+      <h5 class="card-title">NextGen HR Analytics – SQL Toolkit</h5>
+      <p class="project-tags mb-2">
+        <span class="badge-tag me-1">SQL</span>
+        <span class="badge-tag me-1">PostgreSQL</span>
+        <span class="badge-tag me-1">HR Analytics</span>
+      </p>
+      <p class="card-text">
+        A production-ready SQL pack that answers core People Analytics questions: top 5 longest-serving employees,
+        department turnover rates, at-risk staff by performance (≤ 2.5), primary exit reasons, and pay–performance trends.
+        Includes salary benchmarks by role and a performance–salary correlation view to guide fair compensation decisions.
+      </p>
+      <div class="d-flex gap-2">
+        <!-- Put the .sql file at docs/NextGen_Query.sql (exact name below) -->
+        <a href="docs/NextGen_Query.sql" class="btn btn-outline-primary w-50" download>View .sql</a>
+        <a href="#" class="btn btn-primary w-50">Method Notes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+          <!-- Project 3 -->
+<div class="col mix excel">
+  <div class="card card-brand h-100">
+    <img src="images/projects/3.jpg" class="card-img-top" alt="RevAutos Sales Analytics – Excel Toolkit">
+    <div class="card-body">
+      <h5 class="card-title">RevAutos Sales Analytics – Excel Toolkit</h5>
+      <p class="project-tags mb-2">
+        <span class="badge-tag me-1">Excel</span>
+        <span class="badge-tag me-1">Sales Analytics</span>
+        <span class="badge-tag me-1">RevAutos</span>
+      </p>
+      <p class="card-text">
+        An end-to-end Excel workflow: cleaned <em>DirtyData</em> into a structured <em>RevData</em> model, built pivot analyses
+        for revenue, COGS, profit and unit trends, and designed an interactive dashboard by region, brand, model year,
+        and payment method. Includes customer ratings and delivery status for QA checks and at-risk order follow-up.
+      </p>
+      <div class="d-flex gap-2">
+        <!-- Put the Excel file at docs/RevAutos_Data.xlsx -->
+        <a href="docs/RevAutos_Data.xlsx" class="btn btn-outline-primary w-50" download>Download .xlsx</a>
+        <a href="#" class="btn btn-primary w-50">Method Notes</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div> <!-- /#projects-mix -->
+</div> <!-- /.container -->
+</section> <!-- /#projects -->
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section section-alt">
+      <div class="container" data-aos="fade-up">
+        <h1 class="h-display text-center mb-5">Skills</h1>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+          <div class="col">
+            <div class="card card-brand h-100">
+              <img src="images/skills/1.png" class="card-img-top" alt="Microsoft Office">
+              <div class="card-body">
+                <h5 class="card-title">Microsoft Office</h5>
+                <p class="card-text">Excel, PowerPoint (executive decks), Word & Outlook for professional reporting.</p>
+                <a href="#" class="btn btn-outline-primary w-100 skill-cta">Link to course or bootcamp</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card card-brand h-100">
+              <img src="images/skills/2.png" class="card-img-top" alt="Data Visualization">
+              <div class="card-body">
+                <h5 class="card-title">Data Visualization</h5>
+                <p class="card-text">Power BI & Tableau: stakeholder-friendly dashboards, KPI tracking, and data stories for decisions.</p>
+                <a href="#" class="btn btn-outline-primary w-100 skill-cta">Link to course or bootcamp</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card card-brand h-100">
+              <img src="images/skills/3.png" class="card-img-top" alt="SQL">
+              <div class="card-body">
+                <h5 class="card-title">SQL</h5>
+                <p class="card-text">Joins, CTEs, window functions, optimization — reliable analysis over production data.</p>
+                <a href="#" class="btn btn-outline-primary w-100 skill-cta">Link to course or bootcamp</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card card-brand h-100">
+              <img src="images/skills/4.png" class="card-img-top" alt="Data Storytelling">
+              <div class="card-body">
+                <h5 class="card-title">Data Storytelling</h5>
+                <p class="card-text">Translate analysis into insights, narratives, and visuals tailored to non-technical audiences.</p>
+                <a href="#" class="btn btn-outline-primary w-100 skill-cta">Link to course or bootcamp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section" style="background:#000;color:#fff;">
+      <div class="container text-center" data-aos="fade-up">
+        <h1 class="h-display contact-title mb-2">Contact Me</h1>
+        <p class="mb-4" style="max-width:760px;margin:0 auto;color:#E6F1FF;">
+          Let’s connect — I’m open to collaborations, freelance analytics work, and full-time opportunities.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center contact-line">
+          <div class="contact-pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.24l7.4 6.17a1 1 0 0 0 1.2 0L20 8.24V18H4z"/></svg>
+            <span>ebenezerwhite3@gmail.com</span>
+          </div>
+          <div class="contact-pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.2 2.2z"/></svg>
+            <span>+44 7858 071003</span>
+          </div>
+        </div>
+
+        <!-- Social icons -->
+        <div class="row row-cols-2 row-cols-sm-4 row-cols-md-4 g-4 socials justify-content-center mt-3">
+          <div class="col">
+            <a href="#" class="text-decoration-none">
+              <div class="icon-box">
+                <img src="icons/linkedin.png" alt="LinkedIn icon">
+              </div>
+              <p class="social-label">LinkedIn</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="#" class="text-decoration-none">
+              <div class="icon-box">
+                <img src="icons/github.png" alt="GitHub icon">
+              </div>
+              <p class="social-label">GitHub</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="#" class="text-decoration-none">
+              <div class="icon-box">
+                <img src="icons/facebook.png" alt="Facebook icon">
+              </div>
+              <p class="social-label">Facebook</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="#" class="text-decoration-none">
+              <div class="icon-box">
+                <img src="icons/instagram.png" alt="Instagram icon">
+              </div>
+              <p class="social-label">Instagram</p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact form (Formspree) -->
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-10 col-lg-8">
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="text-start bg-white p-4 rounded-3 shadow-sm" style="color:#0a0a0a;">
+              <div class="mb-3">
+                <label class="form-label">Your Name</label>
+                <input type="text" name="name" class="form-control" placeholder="John Doe" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <input type="email" name="_replyto" class="form-control" placeholder="name@example.com" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea name="message" class="form-control" rows="5" placeholder="How can I help?" required></textarea>
+              </div>
+              <input type="hidden" name="_subject" value="New message from your portfolio site">
+              <button type="submit" class="btn btn-primary">Send Message</button>
+              <small class="text-muted ms-2">Powered by Formspree</small>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="btn btn-dark back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- MixItUp (filterable projects) -->
+  <script src="https://cdn.jsdelivr.net/npm/mixitup@3/dist/mixitup.min.js"></script>
+
+  <!-- AOS (scroll animations) -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js"></script>
+
+  <!-- tsParticles (animated dots/lines) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+
+  <script>
+    // Init MixItUp for project filtering
+    const containerEl = document.querySelector('#projects-mix');
+    if (containerEl) {
+      const mixer = mixitup(containerEl, {
+        selectors: { target: '.col' },
+        animation: { duration: 300 }
+      });
+
+      // filter buttons active state
+      document.querySelectorAll('#project-filters [data-filter]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          document.querySelectorAll('#project-filters .btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    }
+
+    // Init AOS (scroll animations)
+    AOS.init({
+      duration: 650,
+      easing: 'ease-out-cubic',
+      once: true
+    });
+
+    // Init tsParticles for hero background
+    (async () => {
+      const particlesContainer = document.getElementById('heroParticles');
+      if (particlesContainer && window.tsParticles) {
+        await tsParticles.load('heroParticles', {
+          background: { color: { value: '#0A192F' } },
+          fpsLimit: 60,
+          particles: {
+            number: { value: 50, density: { enable: true, area: 800 } },
+            color: { value: '#64FFDA' },
+            links: { enable: true, color: '#64FFDA', distance: 120, opacity: 0.25, width: 1 },
+            move: { enable: true, speed: 1, outModes: { default: 'out' } },
+            size: { value: { min: 1, max: 2 } },
+            opacity: { value: 0.4 }
+          },
+          detectRetina: true,
+          fullScreen: { enable: false }
+        });
+      }
+    })();
+
+    // Back-to-top show/hide on scroll
+    (function(){
+      const btn = document.getElementById('backToTop');
+      if(!btn) return;
+
+      const toggle = () => {
+        if (window.scrollY > 300) btn.classList.add('show');
+        else btn.classList.remove('show');
+      };
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>
